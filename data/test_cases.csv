@@ -1,0 +1,9 @@
+user_input,expected_intent,description
+Hello,greeting,Greeting detection
+Where is my order ORD12345?,order_status,Order status with ID
+I want a refund,refund,Refund request
+This product is broken,complaint,Complaint detection
+I need help,help,Help request
+Connect me to a human,human,Human escalation
+Thank you,thanks,Thanks detection
+Bye,goodbye,Goodbye detection

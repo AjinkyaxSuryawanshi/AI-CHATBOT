@@ -1,0 +1,24 @@
+{
+  "session_info": {
+    "start_time": "2026-01-15T00:20:01.812524",
+    "end_time": "2026-01-15T00:21:05.587828",
+    "duration_minutes": 1.0629218166666667
+  },
+  "metrics": {
+    "total_interactions": 1,
+    "escalations_to_human": 0,
+    "escalation_rate": 0.0,
+    "average_response_time_ms": 0.522,
+    "intents_detected": {
+      "goodbye": 1
+    },
+    "sentiment_distribution": {
+      "neutral": 2
+    },
+    "satisfaction_scores": [
+      3
+    ],
+    "average_satisfaction": 3.0
+  },
+  "conversation_history": []
+}

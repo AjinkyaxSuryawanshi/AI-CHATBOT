@@ -18,6 +18,8 @@ import re
 import json
 import pickle
 import numpy as np
+import csv
+import os
 from datetime import datetime
 from collections import defaultdict
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -90,98 +92,69 @@ class CustomerSupportBot:
             print("⚠ No pre-trained model found. Training new model...")
             self.train_model()
     
+    def _load_training_data(self, csv_file='data/training_data.csv'):
+        """Load training data from CSV file"""
+        training_data = []
+        
+        # Check if CSV file exists
+        if not os.path.exists(csv_file):
+            print(f"⚠ Training data file not found: {csv_file}")
+            print("Using default training data...")
+            # Fallback to minimal training data
+            training_data = [
+                ("hello", "greeting"), ("hi there", "greeting"), ("good morning", "greeting"),
+                ("hey", "greeting"), ("greetings", "greeting"), ("good afternoon", "greeting"),
+                ("bye", "goodbye"), ("goodbye", "goodbye"), ("see you later", "goodbye"),
+                ("exit", "goodbye"), ("quit", "goodbye"), ("close", "goodbye"),
+                ("thank you", "thanks"), ("thanks a lot", "thanks"), ("appreciate it", "thanks"),
+                ("grateful", "thanks"), ("thanks for help", "thanks"),
+                ("i want a refund", "refund"), ("refund my money", "refund"),
+                ("how do i get refund", "refund"), ("return money", "refund"),
+                ("i need money back", "refund"), ("reimbursement", "refund"),
+                ("where is my order", "order_status"), ("track my order", "order_status"),
+                ("order status", "order_status"), ("check delivery", "order_status"),
+                ("when will it arrive", "order_status"), ("order tracking", "order_status"),
+                ("cancel my order", "cancel"), ("i want to cancel", "cancel"),
+                ("cancellation request", "cancel"), ("stop my order", "cancel"),
+                ("how long shipping takes", "shipping"), ("delivery time", "shipping"),
+                ("when will it be delivered", "shipping"), ("shipping information", "shipping"),
+                ("payment methods", "payment"), ("how can i pay", "payment"),
+                ("credit card payment", "payment"), ("payment options", "payment"),
+                ("product details", "product_info"), ("tell me about this item", "product_info"),
+                ("product specifications", "product_info"), ("item features", "product_info"),
+                ("i have a complaint", "complaint"), ("this is not working", "complaint"),
+                ("product is broken", "complaint"), ("damaged item", "complaint"),
+                ("this is terrible", "complaint"), ("very disappointed", "complaint"),
+                ("i need help", "help"), ("can you assist me", "help"),
+                ("what can you do", "help"), ("help me please", "help"),
+                ("speak to human", "human"), ("real person", "human"),
+                ("talk to agent", "human"), ("customer representative", "human"),
+            ]
+            return training_data
+        
+        try:
+            with open(csv_file, 'r', encoding='utf-8') as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    training_data.append((row['text'], row['intent']))
+        except Exception as e:
+            print(f"⚠ Error loading training data: {e}")
+            print("Using default training data...")
+            training_data = [
+                ("hello", "greeting"), ("bye", "goodbye"), ("thank you", "thanks"),
+                ("i want a refund", "refund"), ("where is my order", "order_status"),
+                ("cancel my order", "cancel"), ("delivery time", "shipping"),
+                ("payment methods", "payment"), ("product details", "product_info"),
+                ("i have a complaint", "complaint"), ("i need help", "help"),
+                ("speak to human", "human"),
+            ]
+        
+        return training_data
+    
     def train_model(self):
         """Train ML model with comprehensive training data"""
-        # Enhanced training dataset
-        training_data = [
-            # Greetings
-            ("hello", "greeting"), ("hi there", "greeting"), ("good morning", "greeting"),
-            ("hey", "greeting"), ("greetings", "greeting"), ("good afternoon", "greeting"),
-            
-            # Goodbyes
-            ("bye", "goodbye"), ("goodbye", "goodbye"), ("see you later", "goodbye"),
-            ("exit", "goodbye"), ("quit", "goodbye"), ("close", "goodbye"),
-            
-            # Thanks
-            ("thank you", "thanks"), ("thanks a lot", "thanks"), ("appreciate it", "thanks"),
-            ("grateful", "thanks"), ("thanks for help", "thanks"),
-            
-            # Refunds
-            ("i want a refund", "refund"), ("refund my money", "refund"),
-            ("how do i get refund", "refund"), ("return money", "refund"),
-            ("i need money back", "refund"), ("reimbursement", "refund"),
-            
-            # Order Status
-            ("where is my order", "order_status"), ("track my order", "order_status"),
-            ("order status", "order_status"), ("check delivery", "order_status"),
-            ("when will it arrive", "order_status"), ("order tracking", "order_status"),
-            
-            # Cancellation
-            ("cancel my order", "cancel"), ("i want to cancel", "cancel"),
-            ("cancellation request", "cancel"), ("stop my order", "cancel"),
-            
-            # Shipping
-            ("how long shipping takes", "shipping"), ("delivery time", "shipping"),
-            ("when will it be delivered", "shipping"), ("shipping information", "shipping"),    
-            ("shipping details", "shipping"),
-            ("delivery options", "shipping"),
-            ("shipping methods", "shipping"),
-            ("estimated delivery", "shipping"),
-            ("shipping cost", "shipping"),
-            ("track shipment", "shipping"),
-            ("where is my package", "shipping"),
-            
-            # Payment
-            ("payment methods", "payment"), ("how can i pay", "payment"),
-            ("credit card payment", "payment"), ("payment options", "payment"),
-            ("payment information", "payment"),
-            ("pay with paypal", "payment"),
-            ("secure payment", "payment"),
-            ("payment issues", "payment"),
-            ("billing information", "payment"),
-            ("transaction failed", "payment"),
-            ("refund payment", "payment"),
-            
-            # Product Info
-            ("product details", "product_info"), ("tell me about this item", "product_info"),
-            ("product specifications", "product_info"), ("item features", "product_info"),
-            
-            # Complaints
-            ("i have a complaint", "complaint"), ("this is not working", "complaint"),
-            ("product is broken", "complaint"), ("damaged item", "complaint"),
-            ("this is terrible", "complaint"), ("very disappointed", "complaint"),
-            ('i am frustrated', "complaint"), ("this is unacceptable", "complaint"),
-            ("i hate this", "complaint"), ("worst experience", "complaint"),
-            ("this is awful", "complaint"),
-            ("i am angry", "complaint"),
-            ("i am upset", "complaint"),
-            ("this is disgusting", "complaint"),
-            ("i will never buy again", "complaint"),
-            ("this product is useless", "complaint"),
-            ("this is pathetic", "complaint"),
-            ("order is damaged", "complaint"),
-            ("item not working", "complaint"),
-            ("damaged product", "complaint"),
-            ("damaged goods", "complaint"),
-            ("defective item", "complaint"),
-            ("damaged upon arrival", "complaint"),
-            ("damaged item received", "complaint"),
-            ("broken upon delivery", "complaint"),
-            ("received a broken item", "complaint"),
-
-            
-            # Help
-            ("i need help", "help"), ("can you assist me", "help"),
-            ("what can you do", "help"), ("help me please", "help"),
-            ("i require assistance", "help"),
-            ("i need support", "help"),
-            ("can you support me", "help"),
-            ("i am looking for help", "help"),
-            
-            # Human escalation
-            ("speak to human", "human"), ("real person", "human"),
-            ("talk to agent", "human"), ("customer representative", "human"),
-        ]
+        # Load training data from CSV file
+        training_data = self._load_training_data()
         
         texts = [text for text, _ in training_data]
         labels = [label for _, label in training_data]

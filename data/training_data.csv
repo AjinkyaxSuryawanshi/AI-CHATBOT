@@ -1,0 +1,98 @@
+text,intent
+hello,greeting
+hi there,greeting
+good morning,greeting
+hey,greeting
+greetings,greeting
+good afternoon,greeting
+bye,goodbye
+goodbye,goodbye
+see you later,goodbye
+exit,goodbye
+quit,goodbye
+close,goodbye
+thank you,thanks
+thanks a lot,thanks
+appreciate it,thanks
+grateful,thanks
+thanks for help,thanks
+i want a refund,refund
+refund my money,refund
+how do i get refund,refund
+return money,refund
+i need money back,refund
+reimbursement,refund
+where is my order,order_status
+track my order,order_status
+order status,order_status
+check delivery,order_status
+when will it arrive,order_status
+order tracking,order_status
+cancel my order,cancel
+i want to cancel,cancel
+cancellation request,cancel
+stop my order,cancel
+how long shipping takes,shipping
+delivery time,shipping
+when will it be delivered,shipping
+shipping information,shipping
+shipping details,shipping
+delivery options,shipping
+shipping methods,shipping
+estimated delivery,shipping
+shipping cost,shipping
+track shipment,shipping
+where is my package,shipping
+payment methods,payment
+how can i pay,payment
+credit card payment,payment
+payment options,payment
+payment information,payment
+pay with paypal,payment
+secure payment,payment
+payment issues,payment
+billing information,payment
+transaction failed,payment
+refund payment,payment
+product details,product_info
+tell me about this item,product_info
+product specifications,product_info
+item features,product_info
+i have a complaint,complaint
+this is not working,complaint
+product is broken,complaint
+damaged item,complaint
+this is terrible,complaint
+very disappointed,complaint
+i am frustrated,complaint
+this is unacceptable,complaint
+i hate this,complaint
+worst experience,complaint
+this is awful,complaint
+i am angry,complaint
+i am upset,complaint
+this is disgusting,complaint
+i will never buy again,complaint
+this product is useless,complaint
+this is pathetic,complaint
+order is damaged,complaint
+item not working,complaint
+damaged product,complaint
+damaged goods,complaint
+defective item,complaint
+damaged upon arrival,complaint
+damaged item received,complaint
+broken upon delivery,complaint
+received a broken item,complaint
+i need help,help
+can you assist me,help
+what can you do,help
+help me please,help
+i require assistance,help
+i need support,help
+can you support me,help
+i am looking for help,help
+speak to human,human
+real person,human
+talk to agent,human
+customer representative,human

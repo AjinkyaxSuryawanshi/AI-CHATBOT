@@ -1,0 +1,6 @@
+sentence,expected_sentiment
+This is great! I love it!,positive
+This is terrible and frustrating,negative
+Can you help me with this?,neutral
+I'm very angry and disappointed,negative
+Excellent service thank you!,positive

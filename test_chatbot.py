@@ -5,6 +5,82 @@ Validates chatbot functionality and generates sample metrics
 
 from chatbot import CustomerSupportBot
 import time
+import csv
+import os
+
+
+def load_test_cases(csv_file='data/test_cases.csv'):
+    """Load test cases from CSV file"""
+    test_cases = []
+    
+    if not os.path.exists(csv_file):
+        print(f"⚠ Test cases file not found: {csv_file}")
+        print("Using default test cases...")
+        return [
+            ("Hello", "greeting", "Greeting detection"),
+            ("Where is my order ORD12345?", "order_status", "Order status with ID"),
+            ("I want a refund", "refund", "Refund request"),
+            ("This product is broken", "complaint", "Complaint detection"),
+            ("I need help", "help", "Help request"),
+            ("Connect me to a human", "human", "Human escalation"),
+            ("Thank you", "thanks", "Thanks detection"),
+            ("Bye", "goodbye", "Goodbye detection"),
+        ]
+    
+    try:
+        with open(csv_file, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                test_cases.append((row['user_input'], row['expected_intent'], row['description']))
+    except Exception as e:
+        print(f"⚠ Error loading test cases: {e}")
+        print("Using default test cases...")
+        test_cases = [
+            ("Hello", "greeting", "Greeting detection"),
+            ("Where is my order ORD12345?", "order_status", "Order status with ID"),
+            ("I want a refund", "refund", "Refund request"),
+            ("This product is broken", "complaint", "Complaint detection"),
+            ("I need help", "help", "Help request"),
+            ("Connect me to a human", "human", "Human escalation"),
+            ("Thank you", "thanks", "Thanks detection"),
+            ("Bye", "goodbye", "Goodbye detection"),
+        ]
+    
+    return test_cases
+
+
+def load_sentiment_test_cases(csv_file='data/sentiment_test_cases.csv'):
+    """Load sentiment test cases from CSV file"""
+    test_sentences = []
+    
+    if not os.path.exists(csv_file):
+        print(f"⚠ Sentiment test cases file not found: {csv_file}")
+        print("Using default sentiment test cases...")
+        return [
+            ("This is great! I love it!", "positive"),
+            ("This is terrible and frustrating", "negative"),
+            ("Can you help me with this?", "neutral"),
+            ("I'm very angry and disappointed", "negative"),
+            ("Excellent service, thank you!", "positive"),
+        ]
+    
+    try:
+        with open(csv_file, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                test_sentences.append((row['sentence'], row['expected_sentiment']))
+    except Exception as e:
+        print(f"⚠ Error loading sentiment test cases: {e}")
+        print("Using default sentiment test cases...")
+        test_sentences = [
+            ("This is great! I love it!", "positive"),
+            ("This is terrible and frustrating", "negative"),
+            ("Can you help me with this?", "neutral"),
+            ("I'm very angry and disappointed", "negative"),
+            ("Excellent service, thank you!", "positive"),
+        ]
+    
+    return test_sentences
 
 
 def run_automated_tests():
@@ -15,17 +91,8 @@ def run_automated_tests():
     
     bot = CustomerSupportBot(use_ml=True)
     
-    test_cases = [
-        # (user_input, expected_intent, description)
-        ("Hello", "greeting", "Greeting detection"),
-        ("Where is my order ORD12345?", "order_status", "Order status with ID"),
-        ("I want a refund", "refund", "Refund request"),
-        ("This product is broken", "complaint", "Complaint detection"),
-        ("I need help", "help", "Help request"),
-        ("Connect me to a human", "human", "Human escalation"),
-        ("Thank you", "thanks", "Thanks detection"),
-        ("Bye", "goodbye", "Goodbye detection"),
-    ]
+    # Load test cases from CSV
+    test_cases = load_test_cases()
     
     results = []
     
@@ -72,13 +139,8 @@ def test_sentiment_analysis():
     
     bot = CustomerSupportBot(use_ml=True)
     
-    test_sentences = [
-        ("This is great! I love it!", "positive"),
-        ("This is terrible and frustrating", "negative"),
-        ("Can you help me with this?", "neutral"),
-        ("I'm very angry and disappointed", "negative"),
-        ("Excellent service, thank you!", "positive"),
-    ]
+    # Load sentiment test cases from CSV
+    test_sentences = load_sentiment_test_cases()
     
     correct = 0
     for sentence, expected in test_sentences:

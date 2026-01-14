@@ -57,15 +57,20 @@ cd AI-CHATBOT
 # Install dependencies
 pip install -r requirements.txt
 
+# Train the model (optional - uses CSV training data)
+python train_model.py
+
 # Run the chatbot
 python chatbot.py
 ```
 
 ### First Run
 The chatbot will automatically:
-1. Train the ML model
-2. Save model as `chatbot_model.pkl`
+1. Load model from `chatbot_model.pkl` (if exists)
+2. Or train new model from `data/training_data.csv`
 3. Start the interactive session
+
+**NEW:** Training and test data are now stored in CSV files under `data/` directory for easy management.
 
 ### Example Usage
 
@@ -140,9 +145,29 @@ After each session, the chatbot generates:
 
 ```
 AI-CHATBOT/
-├── chatbot.py                    # Main chatbot implementation
-├── test_chatbot.py               # Automated testing suite
-├── requirements.txt              # Python dependencies
+├── data/                         # Dataset directory (NEW!)
+│   ├── training_data.csv        # Training examples (97 samples)
+│   ├── test_cases.csv           # Intent test cases
+│   ├── sentiment_test_cases.csv # Sentiment tests
+│   └── README.md                # Data documentation
+├── chatbot.py                   # Main chatbot implementation
+├── train_model.py               # Model training script (NEW!)
+├── test_chatbot.py              # Automated testing suite
+├── visualize_metrics.py         # Metrics visualization
+├── requirements.txt             # Python dependencies
+├── README.md                    # This file
+├── RESEARCH_DOCUMENTATION.md    # Detailed research docs
+├── PROJECT_STRUCTURE.md         # Structure documentation (NEW!)
+└── LICENSE                      # MIT License
+
+Generated files:
+├── chatbot_model.pkl           # Trained ML model
+└── chatbot_metrics_*.json      # Session data
+```
+
+**✨ Recent Improvement:** Training and testing data are now stored in separate CSV files in the `data/` directory for easy maintenance and collaboration. See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for details.
+
+---
 ├── RESEARCH_DOCUMENTATION.md     # Detailed research docs
 ├── README.md                     # This file
 ├── LICENSE                       # License information
