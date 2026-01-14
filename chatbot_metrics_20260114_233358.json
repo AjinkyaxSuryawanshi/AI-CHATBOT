@@ -1,0 +1,102 @@
+{
+  "session_info": {
+    "start_time": "2026-01-14T23:31:12.733148",
+    "end_time": "2026-01-14T23:33:58.319761",
+    "duration_minutes": 2.7597769333333333
+  },
+  "metrics": {
+    "total_interactions": 10,
+    "escalations_to_human": 0,
+    "escalation_rate": 0.0,
+    "average_response_time_ms": 0.5872,
+    "intents_detected": {
+      "greeting": 4,
+      "refund": 1,
+      "unknown": 2,
+      "help": 1,
+      "product_info": 1,
+      "goodbye": 1
+    },
+    "sentiment_distribution": {
+      "neutral": 20
+    },
+    "satisfaction_scores": [
+      2
+    ],
+    "average_satisfaction": 2.0
+  },
+  "conversation_history": [
+    {
+      "timestamp": "2026-01-14 23:31:16",
+      "user": "hi",
+      "bot": "Hello! Welcome to Customer Support. I'm here to help you with any questions or concerns. What can I do for you today?",
+      "intent": "greeting",
+      "sentiment": "neutral",
+      "frustration_level": 0
+    },
+    {
+      "timestamp": "2026-01-14 23:31:21",
+      "user": "this is frustating",
+      "bot": "Hello! Welcome to Customer Support. I'm here to help you with any questions or concerns. What can I do for you today?",
+      "intent": "greeting",
+      "sentiment": "neutral",
+      "frustration_level": 0
+    },
+    {
+      "timestamp": "2026-01-14 23:31:32",
+      "user": "damaged order what is this",
+      "bot": "Hello! Welcome to Customer Support. I'm here to help you with any questions or concerns. What can I do for you today?",
+      "intent": "greeting",
+      "sentiment": "neutral",
+      "frustration_level": 0
+    },
+    {
+      "timestamp": "2026-01-14 23:31:35",
+      "user": "hii",
+      "bot": "Hello! Welcome to Customer Support. I'm here to help you with any questions or concerns. What can I do for you today?",
+      "intent": "greeting",
+      "sentiment": "neutral",
+      "frustration_level": 0
+    },
+    {
+      "timestamp": "2026-01-14 23:31:39",
+      "user": "refund",
+      "bot": "I can help you with refunds. Please provide your order ID (e.g., ORD12345), and I'll process your refund request.",
+      "intent": "refund",
+      "sentiment": "neutral",
+      "frustration_level": 0
+    },
+    {
+      "timestamp": "2026-01-14 23:31:49",
+      "user": "very frustating",
+      "bot": "I'm not sure I understood that correctly. Could you please rephrase your question or type 'help' to see what I can assist you with?",
+      "intent": "unknown",
+      "sentiment": "neutral",
+      "frustration_level": 0
+    },
+    {
+      "timestamp": "2026-01-14 23:31:56",
+      "user": "help",
+      "bot": "I'm here to assist you with:\n\ud83d\udce6 Order tracking and status\n\ud83d\udcb0 Refunds and returns\n\u274c Order cancellations\n\ud83d\ude9a Shipping information\n\ud83d\udcb3 Payment methods\n\ud83d\udcdd Product information\n\u26a0\ufe0f Complaints and issues\n\ud83d\udc64 Connect with human agent\n\nWhat would you like help with?",
+      "intent": "help",
+      "sentiment": "neutral",
+      "frustration_level": 0
+    },
+    {
+      "timestamp": "2026-01-14 23:32:09",
+      "user": "product information",
+      "bot": "I'd be happy to provide product information. Please tell me which product you're interested in, or provide the product name/ID.",
+      "intent": "product_info",
+      "sentiment": "neutral",
+      "frustration_level": 0
+    },
+    {
+      "timestamp": "2026-01-14 23:32:13",
+      "user": "saree",
+      "bot": "I'm not sure I understood that correctly. Could you please rephrase your question or type 'help' to see what I can assist you with?",
+      "intent": "unknown",
+      "sentiment": "neutral",
+      "frustration_level": 0
+    }
+  ]
+}
