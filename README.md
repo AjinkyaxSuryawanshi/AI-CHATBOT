@@ -294,3 +294,4 @@ context-aware logic and machine learning techniques.
 
 ## Status
 Project is under active development as part of an academic research project.
+Project when completed will be deployed [SOON]
